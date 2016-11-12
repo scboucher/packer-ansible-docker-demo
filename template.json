@@ -1,0 +1,19 @@
+{
+    "builders": [
+        {
+            "type": "docker",
+            "image": "fedora",
+            "commit": "true"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": "dnf install -y ansible python2-dnf"
+        },
+        {
+            "type": "ansible-local",
+            "playbook_file": "./site.yml"
+        }
+    ]
+}

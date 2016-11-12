@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+    - name: install dependecies
+      dnf: 
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - tmux
+        - git
+        - mysql
+        - vim
+    - name: Create fedora user
+      user: 
+        name: fedora
+        state: present
