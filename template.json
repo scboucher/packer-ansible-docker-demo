@@ -2,14 +2,17 @@
     "builders": [
         {
             "type": "docker",
-            "image": "fedora",
+            "image": "jetbrains/teamcity-minimal-agent",
             "commit": "true"
         }
     ],
     "provisioners": [
         {
             "type": "shell",
-            "inline": "dnf install -y ansible python2-dnf"
+            "inline": [
+                "apt-get update -y -qq",
+                "apt-get install -y ansible"
+            ]
         },
         {
             "type": "ansible-local",
