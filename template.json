@@ -15,5 +15,12 @@
             "type": "ansible-local",
             "playbook_file": "./site.yml"
         }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "repository": "sboucher/packer-ansible-demo",
+            "tag": "0.1"
+        }
     ]
 }
