@@ -16,7 +16,8 @@
         },
         {
             "type": "ansible-local",
-            "playbook_file": "./site.yml"
+            "playbook_file": "./site.yml",
+            "galaxy_file": "requirements.yml"
         }
     ],
     "post-processors": [

@@ -1,12 +1,37 @@
 ---
 - hosts: localhost
+  vars: 
+    - nodejs_version: 6.x
+  roles:
+    - { role: SimpliField.node }
   tasks:
     - name: install dependecies
       apt: 
         name: "{{ item }}"
         state: latest
       with_items:
-        - nodejs
         - git
         - gcc
         - make
+        - vagrant
+    - name: Install Node tools
+      npm:
+        name: "{{ item }}"
+        state: latest
+        global: yes
+      with_items:
+        - grunt-cli
+        - grunt
+        - yarn
+        - bower
+    - name: Download Packer
+      get_url:
+        url: https://releases.hashicorp.com/packer/0.11.0/packer_0.11.0_linux_amd64.zip
+        dest: /root/packer.zip
+
+    - name: Install Packer
+      unarchive:
+        src: /root/packer.zip
+        remote_src: yes
+        dest: /usr/local/bin
+        mode: 0755

@@ -3,7 +3,7 @@ DOCKER ?= docker
 
 .PHONY: clean
 clean:
-	$(DOCKER) rmi `$(DOCKER) images -qa`
+	$(DOCKER) rmi scboucher/packer-ansible-demo
 build:
 	$(PACKER) build template.json
 .PHONY: validate
