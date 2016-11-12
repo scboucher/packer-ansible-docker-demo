@@ -19,7 +19,7 @@
     "post-processors": [
         {
             "type": "docker-tag",
-            "repository": "sboucher/packer-ansible-demo",
+            "repository": "scboucher/packer-ansible-demo",
             "tag": "0.1"
         }
     ]
