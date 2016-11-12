@@ -4,11 +4,16 @@
  In this case the playbook install few dependencies and create a user.
  
 
-## Usage
+## Usage build an image
 ```
-    packer build template.json
+  make build  
 ```
 
+
+## Usage clean
+```
+  make clean
+```
 
 ## Note 
 It is sad that we need to install Ansible with another provioner.
