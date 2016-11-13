@@ -3,9 +3,8 @@ DOCKER ?= docker
 TERRAFORM ?= terraform
 .PHONY: clean
 clean:
-	@echo: ==> Will Remove everything from your system relateted to this build
-	$(DOCKER) rmi scboucher/packer-ansible-demo
-	
+	@echo "==> Will Remove everything from your system relateted to this build"
+	$(TERRAFORM) destroy
 build:
 	$(PACKER) build template.json
 .PHONY: validate
