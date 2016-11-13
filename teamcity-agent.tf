@@ -6,24 +6,25 @@ resource "docker_container" "agent1" {
     image = "${docker_image.tc.name}"
     name = "teamcity-agent-1"
     command = ["/run-services.sh"]
-    env = ["SERVER_URL='http://${docker_container.server.ip_address}:8111'"]
+    env = ["SERVER_URL=http://${docker_container.server.ip_address}:8111"]
 }
 resource "docker_container" "agent2" {
     image = "${docker_image.tc.name}"
     name = "teamcity-agent-2"
     command = ["/run-services.sh"]
-    env = ["SERVER_URL='http://${docker_container.server.ip_address}:8111'"]
+    env = ["SERVER_URL=http://${docker_container.server.ip_address}:8111"]
 }
 resource "docker_container" "agent3" {
     image = "${docker_image.tc.name}"
     name = "teamcity-agent-3"
     command = ["/run-services.sh"]
-    env = ["SERVER_URL='http://${docker_container.server.ip_address}:8111'"]
+    env = ["SERVER_URL=http://${docker_container.server.ip_address}:8111"]
 }
 
 resource "docker_container" "server" {
     image = "${docker_image.tc-server.latest}"
     name = "teamcity-server"
+    hostname ="teamcity"
     ports {
         internal = 8111
         external = 8111
