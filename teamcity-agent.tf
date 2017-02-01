@@ -2,7 +2,7 @@ provider "docker" {}
 
 # Create  containers
 resource "docker_container" "agent" {
-  image   = "${docker_image.tc.name}"
+  image   = "${docker_image.teamcity-agent.name}"
   name    = "teamcity-agent-${ count.index + 1 }"
   count   = "${var.docker-container-count}"
   command = ["/run-services.sh"]
@@ -10,7 +10,7 @@ resource "docker_container" "agent" {
 }
 
 resource "docker_container" "server" {
-  image    = "${docker_image.tc-server.latest}"
+  image    = "${docker_image.teamcity-server.latest}"
   name     = "teamcity-server"
   hostname = "teamcity"
 
@@ -34,12 +34,12 @@ resource "docker_container" "db" {
 }
 
 # List of Images used
-resource "docker_image" "tc" {
+resource "docker_image" "teamcity-agent" {
   name         = "jetbrains/teamcity-agent:10.0.3"
   keep_locally = true
 }
 
-resource "docker_image" "tc-server" {
+resource "docker_image" "teamcity-server" {
   name         = "jetbrains/teamcity-server:10.0.3"
   keep_locally = true
 }
@@ -49,20 +49,24 @@ resource "docker_image" "mysql" {
   keep_locally = true
 }
 
-# Database Connecion settings
-provider "mysql" {
-  endpoint = "localhost:3306"
-  username = "root"
-  password = "${var.db-password}"
-}
+# # Database Connecion settings
+# provider "mysql" {
+#   # endpoint = "${docker_container.db.ip_address}:3306"
+#   endpoint = "localhost:3306"
+#   username = "root"
+#   password = "${var.db-password}"
+
+#  depends_on = "docker_container.db"
+# }
 
 # Create a Database
 resource "mysql_database" "teamcity" {
-
+  # depends_on = "${docker_container.db}"
   name = "teamcity"
 }
 
 resource "mysql_user" "teamcity" {
+  # depends_on = "${docker_container.db}"
   user     = "teamcity"
   host     = "%"
   password = "password"
